@@ -1,15 +1,14 @@
 #include "session.h"
 
-Session::Session(int p) : port(p){
-}
+Session::Session(int p, string host) : port(p), bindaddr(host){}
 
 
 void Session::sendMessage(const string& msg){
 	const string message = msg + "\n";
 	boost::system::error_code err;
-	boost::asio::write(*(this->socket), boost::asio::buffer(message), err);
+	boost::asio::write(*socket, boost::asio::buffer(message), err);
 	if(err){
-		cout<<"Error in connection"<<endl;
+		cout<<"Error in connection: "<<err.message()<<endl;
 	}
 }
 	

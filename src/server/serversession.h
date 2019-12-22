@@ -3,7 +3,7 @@
 class ServerSession : public Session{
 	private:
 		int n;
-		tcp::acceptor acc;
+		tcp::acceptor* acc;
 	public:
 		ServerSession(int);
 		void getConnections();

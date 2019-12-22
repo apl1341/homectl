@@ -12,6 +12,8 @@ int main(int c, char** argc){
 	ServerSession session(1200);
 	session.connect();
 	session.getConnections();
-	string g = session.readMessage();
-	cout<<g<<endl;
+	while(true){
+		string g = session.readMessage();
+		cout<<g<<endl;
+	}
 }

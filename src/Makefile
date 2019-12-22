@@ -1,5 +1,5 @@
 CC=g++
-CPPFLAGS = -lboost_system -pthread
+CPPFLAGS = -lboost_system -pthread -ggdb
 
 SRDEPS = com/session.h server/serversession.h
 SROBJ = server/server.o com/session.o server/serversession.o
