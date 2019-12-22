@@ -10,12 +10,13 @@ using namespace std;
 
 class Session{
 	protected:
+		int port;
 		boost::asio::io_service ios;
-		tcp::socket socket;
-		tcp::acceptor acc;
+		tcp::socket* socket;
 		const int buf_sz = 1024;//max size for a buffer
 	public:
 		Session(int);
-		void sendMessage(string&);
+		void sendMessage(const string&);
+		virtual void connect();//init socket
 		string readMessage();
 };

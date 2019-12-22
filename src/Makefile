@@ -7,14 +7,16 @@ SROBJ = server/server.o com/session.o server/serversession.o
 CLDEPS = com/session.h  client/clientsession.h
 CLOBJ =  com/session.o  client/clientsession.o client/client.o
 
+all: server client
+
 %.o: %.c $(SRDEPS) $(CLDEPS)
 	$(CC) -c -o $@ $< $(CPPFLAGS)
 
-server/server: $(SROBJ)
-	$(CC) -o $@ $^ $(CPPFLAGS)
+server: $(SROBJ)
+	$(CC) -o server/server $^ $(CPPFLAGS)
 
-client/client: $(CLOBJ)
-	$(CC) -o $@ $^ $(CPPFLAGS)
+client: $(CLOBJ)
+	$(CC) -o client/client $^ $(CPPFLAGS)
 
 clean:
 	rm -rf */*.o
