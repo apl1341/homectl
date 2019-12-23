@@ -17,5 +17,6 @@ string Session::readMessage(){
 	boost::asio::streambuf buf;
 	boost::asio::read_until(*(this->socket), buf, "\n" );
 	string data = boost::asio::buffer_cast<const char*>(buf.data());
+	data.erase(remove(data.begin(), data.end(), '\n'), data.end());
 	return data;
 }
