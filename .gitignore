@@ -1,0 +1,14 @@
+*
+!*.cpp
+!*.cxx
+!*.c
+!*.h
+!*.hxx
+!*.md
+!*.cs
+!*.java
+!*.hpp
+!*.c++
+!*.asm
+!*.py
+!Makefile
