@@ -1,6 +1,7 @@
 //client.cpp
 
 #include "clientsession.h"
+#include "../com/protocol.h"
 
 #include <iostream>
 #include <boost/asio.hpp>
@@ -8,6 +9,28 @@
 using namespace boost::asio;
 using namespace std;
 using ip::tcp;
+
+void log_prompt(Session* session){
+	cout<<"homectl-unix/log (enter filename)> "<<endl;
+	string fname;
+	cin>>fname;
+	session->sendMessage(fname);
+	string r = session->readMessage();
+	cout<<flush;
+	while(r.compare(LOG_PUT) == 0){
+		cout<<"homectl-unix/log> ";
+		string msg;
+		cin>>msg;
+		if(msg.compare("QQ") == 0){
+			cout<<"Quitting log mode..."<<endl;
+			session->sendMessage(END_LOG);
+			return;
+		}
+		session->sendMessage(msg);
+		r = session->readMessage();
+	}
+}
+	
 
 int main(int c, char** argc){
 	if(c<2){
@@ -19,10 +42,19 @@ int main(int c, char** argc){
 	cout<<"Connecting to host: "<<host<<endl;
 	ClientSession session(1200, host);
 	session.connect();
-	while(true){
+	string in;
+	cin>>in;
+	while(!in.empty()){
+		if(in.compare("quit") == 0){
+			cout<<"Exiting...\n";
+			return 0;
+		}
 		cout<<"homectl-unix> ";
-		string m;
-		cin>>m;
-		session.sendMessage(m);
+		session.sendMessage(in);
+		string r = session.readMessage();
+		if(r.compare(LOG) == 0){
+			log_prompt(&session);
+		}
+		cin>>in;
 	}
 }
