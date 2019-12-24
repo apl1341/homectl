@@ -6,6 +6,8 @@
 #include <iostream>
 #include <boost/asio.hpp>
 
+#include "../com/promptreader.h"
+
 using namespace boost::asio;
 using namespace std;
 using ip::tcp;
@@ -17,10 +19,9 @@ void log_prompt(Session* session){
 	session->sendMessage(fname);
 	string r = session->readMessage();
 	cout<<flush;
+	PromptReader pr("homectl-unix/log");
 	while(r.compare(LOG_PUT) == 0){
-		cout<<"homectl-unix/log> ";
-		string msg;
-		cin>>msg;
+		string msg = pr.prompt('\n');	
 		if(msg.compare("QQ") == 0){
 			cout<<"Quitting log mode..."<<endl;
 			session->sendMessage(END_LOG);
