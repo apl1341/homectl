@@ -1,5 +1,11 @@
 //protocol header
 #pragma once
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+using namespace std;
 
 const string LOG = "log";
 const string LOG_PUT = "lput";

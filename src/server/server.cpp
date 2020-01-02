@@ -5,6 +5,7 @@
 
 #include "serversession.h"
 #include "../com/protocol.h"
+#include "../com/logwriter.h"
 
 using namespace boost::asio;
 using namespace std;
@@ -15,22 +16,21 @@ void log_prompt(Session* session){
 	session->sendMessage(LOG);
 	string narg = session->readMessage();
 	//the next arg is the file
-	ofstream out;
-	out.open(narg);
+	LogWriter lw(narg.c_str());
 	session->sendMessage(LOG_PUT);
 	narg = session->readMessage();
 	while(!narg.empty()){
 		cout<<"log line recieved"<<endl;
-		out<<narg+"\n";
+		lw.write(narg+"\n");
 		session->sendMessage(LOG_PUT);
 		narg = session->readMessage();
 		if(narg.compare(END_LOG) == 0){
 			cout<<"exiting log file and writing"<<endl;
-			out.close();
+			lw.close();
 			return;
 		}
 	}
-	out.close();
+	lw.close();
 }
 	
 	
