@@ -9,6 +9,6 @@ void LogWriter::write(string str){
 }
 
 bool LogWriter::close(){
-	fclose(this->file);
+	return !fclose(this->file);
 }
 	

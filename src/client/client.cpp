@@ -19,9 +19,9 @@ void log_prompt(Session* session){
 	session->sendMessage(fname);
 	string r = session->readMessage();
 	cout<<flush;
-	PromptReader pr("homectl-unix/log");
+	PromptReader pr("homectl-unix/log", 1024);
 	while(r.compare(LOG_PUT) == 0){
-		string msg = pr.prompt('\n');	
+		string msg(pr.getInput());
 		if(msg.compare("QQ") == 0){
 			cout<<"Quitting log mode..."<<endl;
 			session->sendMessage(END_LOG);

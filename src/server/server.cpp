@@ -20,8 +20,7 @@ void log_prompt(Session* session){
 	session->sendMessage(LOG_PUT);
 	narg = session->readMessage();
 	while(!narg.empty()){
-		cout<<"log line recieved"<<endl;
-		lw.write(narg+"\n");
+		lw.write(narg);
 		session->sendMessage(LOG_PUT);
 		narg = session->readMessage();
 		if(narg.compare(END_LOG) == 0){

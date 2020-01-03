@@ -13,7 +13,7 @@ class LogWriter{
 		FILE* file;
 	public:
 		LogWriter(const char*);
-		void write(string);
+		void write(string);//writes a single block or word to the log
 		bool close();
 };
 	

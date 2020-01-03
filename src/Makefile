@@ -4,8 +4,8 @@ CPPFLAGS = -lboost_system -pthread -ggdb
 SRDEPS = com/logwriter.h com/session.h server/serversession.h
 SROBJ =  com/logwriter.o server/server.o com/session.o server/serversession.o
 
-CLDEPS = com/session.h  client/clientsession.h
-CLOBJ = com/session.o  client/clientsession.o client/client.o
+CLDEPS = com/promptreader.h com/session.h  client/clientsession.h
+CLOBJ = com/promptreader.o com/session.o  client/clientsession.o client/client.o
 
 all: server client
 
